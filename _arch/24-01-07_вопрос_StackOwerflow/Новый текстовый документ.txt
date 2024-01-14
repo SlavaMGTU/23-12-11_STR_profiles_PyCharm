@@ -1,0 +1,17 @@
+app = {Dash} <dash.dash.Dash object at 0x000001746F892710>
+ callback_map = {dict: 0} {}
+ config = {AttributeDict: 23} {'name': '__main__', 'assets_folder': 'D:\\work\\23-12-11_STR_profiles_PyCharm\\assets', 'assets_url_path': 'assets', 'assets_...ow_undo_redo': False, 'extra_hot_reload_paths': [], 'title': 'Dash', 'update_title': 'Updating...', 'include_pages_meta': True}
+ css = {Css} <dash.resources.Css object at 0x0000017470672750>
+ index_string = {str} '<!DOCTYPE html>\n<html>\n    <head>\n        {%metas%}\n        <title>{%title%}</title>\n        {%favicon%}\n        {%css%}\n    </head>\n    <body>\n        <!--[if IE]><script>\n        alert("Dash v2.7+ does not support Internet Explorer. Please use a newer b
+ layout = {NoneType} None
+ logger = {Logger} <Logger dash.dash (INFO)>
+ pages_folder = {str} 'pages'
+ registered_paths = {defaultdict: 0} defaultdict(<class 'set'>, {})
+ renderer = {str} 'var renderer = new DashRenderer();'
+ routes = {list: 8} ['/_dash-component-suites/<string:package_name>/<path:fingerprinted_path>', '/_dash-layout', '/_dash-dependencies', '/_dash-update-component', '/_reload-hash', '/_favicon.ico', '/', '/<path:path>']
+ routing_callback_inputs = {dict: 0} {}
+ scripts = {Scripts} <dash.resources.Scripts object at 0x00000174705D3A10>
+ server = {Flask} <Flask 'main'>
+ title = {str} 'Dash'
+ use_pages = {bool} False
+ validation_layout = {NoneType} None

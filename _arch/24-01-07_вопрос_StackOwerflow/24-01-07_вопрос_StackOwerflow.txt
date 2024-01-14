@@ -1,0 +1,43 @@
+optimize the code that iterates only the desired combinations of elements from a table (list)
+
+The program checks the kinship of horses.  I don't need to iterate through all possible combinations of rows from an existing table (a list of horse id numbers).
+1. A child cannot be his own parent.
+2. If for a given child, two id-horses from the list have already been indicated as Parent1/2, there is no need to repeat this combination and swap parents 1/2
+
+In a program, extra combinations of id-horses significantly increase the program execution time. I need to reduce the number of combinations to a minimum
+
+I must provide all the rows in the option: child and parents as input to the (def search_for_parents). 
+Here is an example table:  
+```
+df = [10, 11, 12, 13]  
+```
+Here is the required result of possible combinations obtained from the list:
+```none
+№Comb; child; parent1; parent2;  
+0;     10;     11;       12;  
+1;     10;     11;       13;  
+2;     10;     12;       13;  
+3;     11;     10;       12;  
+4;     11;     10;       13;  
+5;     11;     12;       13;  
+...  
+9;     13;     10;       11;  
+10;    13;     10;       12;  
+11;    13;     11;       12;  
+```
+
+
+My code:
+
+```
+    for child in range(len(df)):
+        for parent1 in range(len(df)):
+            for parent2 range(len(df)):
+                if child != parent1 and child != parent2:
+                    if  parent1 != parent2:
+                            answ = search_for_parents(child, parent1, parent2)
+
+```
+but the current data enumeration code makes it so that the same data is received as input twice. 
+How can I optimize the code that takes data from a table?
+
