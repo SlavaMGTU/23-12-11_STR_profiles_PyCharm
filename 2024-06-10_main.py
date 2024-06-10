@@ -1,5 +1,12 @@
+# Поиск родственников для ЗАДАННОй лошади
+# строка 140 ЗАМЕНА Номера и Имени ребенка в поиске
+#53 Знаменосец
+#3131 Гастроль (по-моему, она под кличкой Грань Твоей Души)
+#2402 Гармония
+#3249 Ракита
+#3057 Ночка Звёздная
 import pandas as pd
-
+import re
 
 def search_for_parents(child_row, parent1, parent2, numb_col):
     parents_rows = [parent1, parent2]
@@ -88,8 +95,9 @@ def search_for_parents(child_row, parent1, parent2, numb_col):
                         answ = answ + f"Родитель2 Note {parents_rows[1]} - НЕТ совпадений; "
                 else:
                     answ = answ + "Оба могут быть родителями; "
+    answ = answ + f" {null_index} {'{:02d}'.format(parent1_index)} {'{:02d}'.format(parent2_index)} ; "
     return answ
-df = pd.read_csv('D:\\work\\23-12-11_STR_profiles_PyCharm\\STR профили для программы.csv'
+df = pd.read_csv('D:\\work\\23-12-11_STR_profiles_PyCharm\\gitignore\\Книга123.csv'
     ,sep=';', encoding='utf-8')#чтение файла
 
 resalt = {'id': [0],
@@ -113,14 +121,79 @@ resalt = {'id': [0],
         }
 df_result = pd.DataFrame(resalt)
 
-#данные по поиску
-child_row_gl, parent1_gl, parent2_gl = 196,197,198
-# Бель Флер(дочь) Флорис авеню(отец) Белуга(мать)
+relativ_data = {'id': [],
+                'child': [],
+                'parent1': [],
+                'parent2': [],
+                'parent1_points': [],
+                'parent2_points': [],
+                }
+df_relativ = pd.DataFrame(relativ_data)
 
-for numb_col_gl in range(2,36,2):
-    answ = search_for_parents(child_row_gl, parent1_gl, parent2_gl, numb_col_gl)
+# Добавление новой колонки "id_f" из "ID Chromosoft" и "кличка"
+id_f_values = []
+for index, row in df.iterrows():
+    id_f = f"{row['ID Chromosoft']}_{row['кличка']}"
+    if id_f in id_f_values:#Если  элементe в столбце id_f  равен другой элемент из этого столбца -  ему присваивается номер
+        id_f = id_f + f"_{id_f_values.count(id_f) + 1}"
+    id_f_values.append(id_f)
+df['id_f'] = id_f_values
 
-    col_idx = int((numb_col_gl) / 2)
-    df_result.loc[0, df_result.columns[col_idx]] = answ #записать данные в датафрейм df_result под соответствующий столбец
+rows_read = 0
+#for child in df['id_f']:
+child ='3057_Ночка Звездная РВ'#'2150_Румянец'#'2610_Танго РВ'#!!!! ЗАМЕНА Номера и Имени ребенка в поиске
 
-print(answ )
+for parent1 in df['id_f']:
+
+    num_rows = len(df)
+    progress = (rows_read / len(df)) * 100  # Расчет процента завершения
+    rows_read += 1
+    print(f"Прогресс: {progress:.2f}%")
+
+    for parent2 in df['id_f']:
+        if child != parent1 and child != parent2:
+            if  parent1 != parent2:
+                answ_fin = ''
+                parent1_index_gl= 0
+                parent2_index_gl= 0
+                child_row_gl = df[df['id_f'] == child].index[0]
+                parent1_gl = df[df['id_f'] == parent1].index[0]
+                parent2_gl = df[df['id_f'] == parent2].index[0]
+
+                for numb_col_gl in range(2,36,2):
+                    answ = search_for_parents(child_row_gl, parent1_gl, parent2_gl, numb_col_gl)
+
+                    digits = re.findall(r'\d+', answ)
+
+                    match int(digits[-3]):
+                        case 1:
+                            if  int(digits[-1]) == 1 or int(digits[-1]) ==10 or int(digits[-1]) ==11:
+                                parent2_index_gl += 1
+                        case 2:
+                            if  int(digits[-2]) == 1 or int(digits[-2]) ==10 or int(digits[-2]) ==11:
+                                parent1_index_gl += 1
+                        case 4:
+                            if int(digits[-2]) != 0 and int(digits[-1]) != 0:
+                                if int(digits[-2]) !=  int(digits[-1]):
+                                    parent1_index_gl += 1
+                                    parent2_index_gl += 1
+                                elif int(digits[-2]) == 11:
+                                    parent1_index_gl += 1
+                                    parent2_index_gl += 1
+                            elif int(digits[-2]) != 0:
+                                parent1_index_gl += 1
+                            elif  int(digits[-1]) != 0:
+                                parent2_index_gl += 1
+
+                    col_idx = int((numb_col_gl) / 2)
+                    df_result.loc[0, df_result.columns[col_idx]] = answ #записать данные в датафрейм df_result под соответствующий столбец
+                    if 'Note' in answ or 'attention' in answ:
+                        answ_fin += df_result.columns[col_idx]+': '
+                        answ_fin += answ
+
+                if  parent1_index_gl >= 12 and parent2_index_gl >= 12 :
+                    df_relativ.loc[len(df_relativ.index)] = ['', child , parent1, parent2, parent1_index_gl, parent2_index_gl]
+                    print(f"Ребенок: {child}; Род1:{parent1} {parent1_index_gl}/17 ; Род2:{parent2} {parent2_index_gl}/17 ;")
+
+
+df_relativ.to_csv('file1.csv')
