@@ -1,3 +1,6 @@
+# Redirect
+This repository is written in Russian. Please view the [README in Russian](README_RUS.md).
+
 ## Программа find_1-horse.exe
 
 Данная программа предназначена для работы с генетической информацией о лошадях. Для начала работы выполните следующие шаги:
