@@ -4,7 +4,7 @@
 
 1. Подготовьте таблицу базы данных из "*.xlsx" в "*.csv": 1.Сохранить как -> 2.Обзор -> 3.Выбор типа файла -> 4.Выбрать тип файла "CSV UTF-8(разделитель-запятая)(*.csv) -> Сохранить базу данных в формате "*.csv" 
 - ![pic00](Assets/pic00.jpg)
-2. Запустите исполняемый файл `find_1-horse.exe` из папки `\dist\find_1-horse` (если не запускается, то все в архиве`https://drive.google.com/file/d/1-QWjOkPjawW2P2A6FhjLorNsW90rNXwu/view?usp=sharing`).
+2. Запустите исполняемый файл `find_1-horse_v02.exe` из папки `\dist\find_1-horse` (если не запускается, то все в архиве`https://drive.google.com/file/d/1GOyMS0cAvOfyMcVaf6HNgyM28tubKOWi/view?usp=sharing`).
 2. После открытия страницы в браузере нажмите на кнопку "Select Files" и выберите базу данных
 с генетической информацией о лошадях (34 буквы, 17 локусов).
 - ![pic01](Assets/pic01.jpg)
